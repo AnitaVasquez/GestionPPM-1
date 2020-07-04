@@ -24,7 +24,7 @@ namespace TemplateInicial.Controllers
         public int id_rol { get; set; }
         public string nombre_rol { get; set; }
         public string descripcion_rol { get; set; }
-        public Nullable<bool> estado_rol { get; set; }
+        public bool? estado_rol { get; set; }
         public List<int> idsPerfiles_guardar { get; set; }
         public List<int> idsPerfiles_editar { get; set; }
 
@@ -61,8 +61,6 @@ namespace TemplateInicial.Controllers
             {
                 ViewBag.Iframe = path;
             }
-
-            return View();
 
             return View();
         }
