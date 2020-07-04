@@ -4,11 +4,11 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Directorios
-ArchivosAdjuntosCotizaciones/
-ArchivosTemporales/
-CargasMasivas/
-Config/
-Solicitud/
+TemplateInicial/ArchivosAdjuntosCotizaciones/
+TemplateInicial/ArchivosTemporales/
+TemplateInicial/CargasMasivas/
+TemplateInicial/Config/
+TemplateInicial/Solicitud/
 
 # User-specific files
 *.rsuser
