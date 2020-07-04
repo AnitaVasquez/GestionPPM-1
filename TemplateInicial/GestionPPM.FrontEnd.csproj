@@ -65,14 +65,6 @@
     <Reference Include="Mvc.Grid.Core, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NonFactors.Grid.Core.Mvc5.7.0.0\lib\net45\Mvc.Grid.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Omu.Awem, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Omu.Awem.dll</HintPath>
-    </Reference>
-    <Reference Include="Omu.AwesomeMvc, Version=6.0.3.0, Culture=neutral, PublicKeyToken=9c6fbba722ea1caf, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Omu.AwesomeMvc.dll</HintPath>
-    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>

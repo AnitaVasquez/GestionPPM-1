@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data; 
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,17 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using GestionPPM.Entidades;
 using GestionPPM.Entidades.Metodos;
 using GestionPPM.Entidades.Modelo;
 using GestionPPM.Repositorios;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using Omu.Awem.Helpers; 
 using Seguridad.Helper;
 
 namespace TemplateInicial.Controllers
-{ 
+{
     [Autenticado]
     public class CargaPTOPController : BaseAppController
     { 

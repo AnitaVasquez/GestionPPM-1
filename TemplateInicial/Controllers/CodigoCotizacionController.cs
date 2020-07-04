@@ -10,7 +10,6 @@ using GestionPPM.Repositorios;
 using System.Threading.Tasks;
 using OfficeOpenXml;
 using System.Text;
-using Omu.Awem.Helpers;
 using OfficeOpenXml.Style;
 using System.IO;
 using Seguridad.Helper;
@@ -469,11 +468,11 @@ namespace TemplateInicial.Controllers
 
         }
 
-        public JsonResult GetDependientesTipoLineaNegocio(int id)
-        {
-            var catalogo = CatalogoEntity.ObtenerListadoCatalogos(id).Select(o => new Oitem(o.Value, o.Text));
-            return Json(catalogo);
-        }
+        //public JsonResult GetDependientesTipoLineaNegocio(int id)
+        //{
+        //    var catalogo = CatalogoEntity.ObtenerListadoCatalogos(id).Select(o => new Oitem(o.Value, o.Text));
+        //    return Json(catalogo);
+        //}
 
 
         public JsonResult GetDependientesClienteContactos(int? id)
