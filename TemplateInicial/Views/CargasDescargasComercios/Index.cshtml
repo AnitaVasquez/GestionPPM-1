@@ -1,0 +1,380 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/css/boostrap-fileInput/fileinput.min.css" rel="stylesheet" />
+<link href="~/Content/css/themes-boostrapFileInput/explorer-fas/theme.min.css" rel="stylesheet" />
+
+<style>
+    #tabla-errores-carga {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #tabla-errores-carga td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #tabla-errores-carga tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #tabla-errores-carga tr:hover {
+            background-color: #ddd;
+        }
+
+        #tabla-errores-carga th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #3C4252;
+            color: white;
+            text-transform: uppercase;
+        }
+    /* Important part */
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+
+    .modal-body {
+        height: 460px;
+        overflow-y: auto;
+    }
+    .btn-primary {
+        /* color: #fff; */
+        background-color: #337ab7 !important;
+        border-color: #2e6da4 !important;
+    }
+</style>
+
+<div class="row">
+
+
+    <div class="row fila-seccion">
+        <div class="col-xs-12" style="text-align: center;">
+            @*<input id="descarga-formato-carga-mids" type="button" value="DESCARGA FORMATO DE CARGA DE MIDS" class="btn btn-success" />*@
+
+        </div>
+    </div>
+
+
+    <form action="#" id="form-PruebaNotificacion" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
+        <div class="col-lg-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 id="texto-informacion-principal" class="box-title">DESCARGAS DE BASES</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+
+
+                    <div class="row fila-seccion">
+                        <div class="col-md-6" style="text-align: center;">
+                            <input id="descarga-reporte-operaciones" type="button" value="DESCARGA BASE MIDS A OPERACIONES" class="btn btn-success" />
+                        </div>
+                        <div class="col-md-6" style="text-align: center;">
+                            <input id="descarga-reporte-mids-nuevos" type="button" value="DESCARGA MIDS NUEVOS" class="btn btn-success" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="col-lg-12">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 title="Cargar los MIDS de los comercios nuevos." id="texto-informacion-principal" class="box-title">CARGA DE MIDS</h3>
+
+                <div class="box-tools pull-right">
+                    <a title="Click para descargar el formato para cargar MIDS" href="@Url.Action("DescargarArchivo", "Home", new { path = ViewBag.FormatoCargaMids })">No tienes el formato para carga de MIDS ?</a>
+
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row fila-seccion">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <form enctype="multipart/form-data">
+                                    <div class="file-loading">
+                                        <input id="file-es" name="file-es[]" type="file">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <form enctype="multipart/form-data">
+                                        <div class="file-loading">
+                                            <input id="file-es2" name="file-es2[]" type="file">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section ViewSpecificJavascript {
+    <script src="~/Content/js/plugins/boostrap-fileInput/fileinput.min.js"></script>
+    <script src="~/Content/js/plugins/boostrap-fileInput/locales/es.js"></script>
+
+    <script>
+        var urlAccionGuardar = '@Url.Action("EnviarPrueba")';
+        var urlAccionDescargarFormatoMID = '@Url.Action("DescargarArchivo", "Home", new { path = ViewBag.FormatoCargaMids })';
+
+        var urlAccionReporteExcelOperaciones = '@Url.Action("DescargarReporteFormatoExcelOperaciones")';
+        var urlAccionReporteExcelMidsNuevos = '@Url.Action("DescargarReporteFormatoExcelMidsNuevos")';
+
+        $(document).ready(function () {
+            debugger
+        })
+
+        $("#guardar").click(function () {
+            debugger
+            var flag = validarCamposRequeridosFormularioCompleto("form-PruebaNotificacion");
+            if (flag)
+                enviar();
+            else
+                toastr.error('@Mensajes.MensajeDatosObligatorios')
+        })
+
+        $("#descarga-reporte-operaciones").click(function () {
+            location.href = urlAccionReporteExcelOperaciones;
+        })
+
+        $("#descarga-reporte-mids-nuevos").click(function () {
+            location.href = urlAccionReporteExcelMidsNuevos;
+        })
+
+        function enviar() {
+            debugger
+            let formulario = $('#form-PruebaNotificacion').serializeObject()
+            let accion = urlAccionGuardar;
+            var data_form = JSON.stringify(formulario)
+            _Guardar(data_form, accion, '@Url.Action("Index")')
+        }
+
+        $('#file-es').fileinput({
+            //showCaption: false, // The "1 file selected non-editable text field"
+            //showRemove: false, // The "Remove" button
+            //showUpload: false, // The "Upload" button
+            //showBrowse: false, // The "Browse ..." button
+            //browseOnZoneClick: false,
+            theme: 'fas',
+            language: 'es',
+            uploadUrl: '@Url.Action("Create")' ,// your upload server url
+            uploadExtraData: function () {
+                return {
+                    texto: $("#description").val(),
+                };
+            },
+            //maxFileCount: 1,
+            //validateInitialCount: true,
+            allowedFileExtensions: ['xls', 'xlsx']
+        }).on('filepreupload', function (event, data, previewId, index) {
+            debugger
+            //$('.alert').alert('close')
+                //alert('The description entered is:\n\n' + ($('#description').val() || ' NULL'));
+            }).on('fileuploaded', function (event, previewId, index, fileId) {
+                debugger
+                let respuesta = previewId.response.Resultado;
+
+                if (respuesta.Estado) {
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                    toastr.success(respuesta.Respuesta);
+                }
+                else {
+                    toastr.error(respuesta.Respuesta);
+                }
+                //console.log(respuesta);
+            //console.log('File Uploaded', 'ID: ' + fileId + ', Thumb ID: ' + previewId);
+            }).on('fileuploaderror', function (event, data, msg) {
+                debugger
+                let respuesta = data.response.Resultado;
+                let erroresCargaMasiva = data.response.ErroresCarga
+
+                console.log(respuesta)
+                $('html, body').animate({ scrollTop: 0 }, 'fast');
+
+                //Limpiar input de carga
+                _ALERT_TOASTR.DANGER.Options.onCloseClick = function () {  $('.fileinput-remove-button').trigger('click'); }
+                _ALERT_TOASTR.DANGER.Options.onHidden = function () {  $('.fileinput-remove-button').trigger('click'); }
+
+                _ALERT_TOASTR.ShowAlert(_ALERT_TOASTR.DANGER, respuesta.Respuesta, '@Etiquetas.TituloError')
+                VisualizarErrores(erroresCargaMasiva)
+
+            }).on('filebatchuploadcomplete', function (event, preview, config, tags, extraData) {
+                debugger
+            //console.log('File Batch Uploaded', preview, config, tags, extraData);
+            });
+
+
+
+
+                $('#file-es2').fileinput({
+            //showCaption: false, // The "1 file selected non-editable text field"
+            //showRemove: false, // The "Remove" button
+            //showUpload: false, // The "Upload" button
+            //showBrowse: false, // The "Browse ..." button
+            //browseOnZoneClick: false,
+            theme: 'fas',
+            language: 'es',
+            uploadUrl: '@Url.Action("Create")' ,// your upload server url
+            uploadExtraData: function () {
+                return {
+                    texto: $("#description").val(),
+                };
+            },
+            //maxFileCount: 1,
+            //validateInitialCount: true,
+            allowedFileExtensions: ['xls', 'xlsx']
+        }).on('filepreupload', function (event, data, previewId, index) {
+            debugger
+            //$('.alert').alert('close')
+                //alert('The description entered is:\n\n' + ($('#description').val() || ' NULL'));
+            }).on('fileuploaded', function (event, previewId, index, fileId) {
+                debugger
+                let respuesta = previewId.response.Resultado;
+                console.log(respuesta)
+                if (respuesta.Estado) {
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                    toastr.success(respuesta.Respuesta);
+                    if (respuesta.Adicional.length > 0)
+                        showAlertAditionals(_ALERT.SUCCESS, respuesta.Respuesta, respuesta.Adicional, '@Mensajes.MensajeCargaMasivaExitosa')
+                }
+                else {
+                    toastr.error(respuesta.Respuesta);
+                }
+            //console.log(respuesta);
+            //console.log('File Uploaded', 'ID: ' + fileId + ', Thumb ID: ' + previewId);
+            }).on('fileuploaderror', function (event, data, msg) {
+                debugger
+                let respuesta = data.response.Resultado;
+                $('html, body').animate({ scrollTop: 0 }, 'fast');
+                toastr.warning(respuesta.Respuesta);
+
+                if (respuesta.Adicional.length > 0)
+                    showAlertAditionals(_ALERT.WARNING, respuesta.Respuesta, respuesta.Adicional, '@Mensajes.MensajeCargaMasivaFallida')
+
+            }).on('filebatchuploadcomplete', function (event, preview, config, tags, extraData) {
+                debugger
+            //console.log('File Batch Uploaded', preview, config, tags, extraData);
+            });
+
+
+
+        //toastr.subscribe(() => {
+        //    console.log("logged something");
+        //});
+        toastr.options.onShown = function () { console.log('hello'); }
+        toastr.options.onHidden = function () { console.log('goodbye'); $('.fileinput-remove-button').trigger('click'); }
+        toastr.options.onclick = function () { console.log('clicked'); $('.fileinput-remove-button').trigger('click');  }
+        toastr.options.onCloseClick = function () { console.log('close button clicked'); $('.fileinput-remove-button').trigger('click'); }
+        $('#file-es').on('change', function (event) {
+            console.log("change");
+        });
+        $('#file-es').on('fileselectnone', function (event) {
+            console.log("Huh! No files were selected.");
+        });
+        $('#file-es').on('fileclear', function (event) {
+            console.log("fileclear");
+        });
+        $('#file-es').on('filecleared', function (event) {
+            console.log("filecleared");
+        });
+        $('#file-es').on('filebeforeload', function (event, file, index, reader) {
+            // perform your validations based on the 'file' or other parameters
+            console.log(file)
+            if (file.name === 'UNAPPROVED_FILE.txt') {
+                return false; // will abort the file loading for the selected file
+            }
+        });
+        $('#file-es').on('fileloaded', function (event, file, previewId, index, reader) {
+            console.log("fileloaded");
+        });
+        $('#file-es').on('filereset', function (event) {
+            console.log("filereset");
+        });
+
+        $('#file-es').on('filelock', function (event, filestack, extraData) {
+            var fstack = [];
+            $.each(filestack, function (fileId, file) {
+                if (file) {
+                    fstack.push(file);
+                }
+            });
+            console.log('Files selected - ' + fstack.length);
+        });
+        $('#file-es').on('filelock', function (event, filestack, extraData) {
+            var fstack = [];
+            $.each(filestack, function (fileId, file) {
+                if (file) {
+                    fstack.push(file);
+                }
+            });
+            console.log('Files selected - ' + fstack.length);
+        });
+        $('#file-es').on('fileremoved', function (event, id, index) {
+            console.log('id = ' + id + ', index = ' + index);
+        });
+
+
+        function VisualizarErrores(data) {
+            $("#seccion-titulo-modal").text('DETALLES ERRORES CARGA MASIVA');
+            $('#contenido-modal').modal({
+                'show': 'true',
+                'backdrop': 'static',
+                'keyboard': false,
+            });
+            mostrarIconoCargando();
+            setTimeout(function () {
+                $("#main-Modal").html(data);
+                // Limpiando el loading
+                ocultarIconoCargando();
+            }, 500);
+        }
+
+    </script>
+
+
+    <script src="~/Content/js/plugins/boostrap-fileInput/plugins/piexif.min.js"></script>
+    <script src="~/Content/js/plugins/boostrap-fileInput/plugins/sortable.min.js"></script>
+
+
+    <script src="~/Content/css/themes-boostrapFileInput/explorer-fas/theme.min.js"></script>
+    <script src="~/Content/css/themes-boostrapFileInput/fas/theme.min.js"></script>
+}
+
+<style>
+    .bootstrap-tagsinput {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        /*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);*/
+        /*display: inline-block;*/
+        padding: 4px 6px;
+        color: #555;
+        vertical-align: middle;
+        border-radius: 0px !important;
+        /*max-width: 100%;*/
+        line-height: 22px;
+        cursor: text;
+    }
+</style>

@@ -1,0 +1,125 @@
+﻿@model GestionPPM.Entidades.Modelo.PlaceToPay.ComercioPlaceToPay
+@using GestionPPM.Entidades.Modelo
+@using GestionPPM.Entidades.Metodos
+
+@{
+    List<GestionPPM.Entidades.Modelo.PlaceToPay.TrackingPPMFasesComercioInfo> listadoTracking = (List<GestionPPM.Entidades.Modelo.PlaceToPay.TrackingPPMFasesComercioInfo>)ViewBag.TrackingFasesComercio;
+}
+<link href="~/Content/css/personalizar.css" rel="stylesheet" />
+<style>
+    /* Important part */
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+
+    .modal-body {
+        height: 460px;
+        overflow-y: auto;
+    }
+</style>
+<script>
+    var urlAccionEditar = '@Url.Action("RegistrarFaseGestion")';
+
+    $(document).ready(function () {
+        $("#seccion-titulo-modal").text('@Html.Raw(ViewBag.TituloModal)');
+    });
+
+    $("#guardar-fase-gestion").click(function () {
+        debugger
+        var flag = validarCamposRequeridosFormularioCompleto("form-faseGestion");
+        if (flag)
+            guardar(); // continue the submit unbind preventDefault
+        else
+            toastr.error('@Mensajes.MensajeDatosObligatorios')
+    })
+
+    function guardar() {
+        debugger
+        var data_form = JSON.stringify({ "formulario": $('#form-faseGestion').serializeObject() })
+        _GuardarModal(data_form, urlAccionEditar);
+    }
+</script>
+
+<form action="#" id="form-faseGestion" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
+    <div class="col-md-12">
+        @Html.Hidden("IDComercioPlaceToPay", Model.IDComercioPlaceToPay)
+
+        <div class="row fila-seccion">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="etiqueta-seccion control-label col-md-2">Fases de Gestión:<span class="requerido"> *</span></label>
+                    <div class="col-md-8">
+                        @Html.DropDownList("FaseGestion", CatalogoEntity.ObtenerListadoCatalogosByCodigo("FASESGESTIONP2P-01", (Model.FaseGestion ?? 0).ToString()), Etiquetas.TituloComboVacio, new { @class = "form-control campo-requerido", required = "" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row fila-seccion">
+            <div class="col-lg-12" style="text-align: center;">
+                <input id="guardar-fase-gestion" type="button" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="col-md-12">
+            <div class="col-lg-12 seccion-detalles-caso">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 id="texto-informacion-principal" class="box-title">TRACKING </h3>
+
+                        @*<div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>*@
+                    </div>
+                    <div class="box-body">
+
+                        <div class="row fila-seccion">
+                            <div class="col-md-12">
+                                <table class="table table-hover table-fixed table-responsive table-bordered">
+                                    <thead style="background-color: #00AD8E;color: white;">
+                                        <tr>
+                                            <th style="text-align: center;">
+                                                RESPONSABLE PPM
+                                            </th>
+                                            <th style="text-align: center;">
+                                                FECHA
+                                            </th>
+                                            <th style="text-align: center;">
+                                                FASE GESTIÓN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in listadoTracking)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.UsuarioCreador)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TextoCatalogoFaseGestion)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+
+
