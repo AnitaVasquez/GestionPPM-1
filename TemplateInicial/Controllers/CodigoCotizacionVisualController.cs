@@ -2,20 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using GestionPPM.Entidades.Metodos;
-using GestionPPM.Entidades.Modelo;
 using GestionPPM.Repositorios;
 using System.Threading.Tasks;
 using OfficeOpenXml;
 using System.Text;
-using Omu.Awem.Helpers;
 using OfficeOpenXml.Style;
-using System.IO;
 using Seguridad.Helper;
-using System.Web;
-using System.Configuration;
 
 namespace TemplateInicial.Controllers
 {

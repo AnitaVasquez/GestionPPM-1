@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data; 
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using GestionPPM.Entidades.Metodos;
 using GestionPPM.Entidades.Modelo;
 using GestionPPM.Repositorios;
 using OfficeOpenXml;
-using Omu.Awem.Helpers;
 using Seguridad.Helper;
 
 namespace TemplateInicial.Controllers
@@ -254,13 +253,13 @@ namespace TemplateInicial.Controllers
             return Json(new { Resultado = resultado }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetOpcionesMenu(string searchTerm)
-        {
-            var items = MenuEntity.ListarMenuHijos()
-                .Select(o => new Oitem(o.id_menu, o.nombre_menu));
+        //public JsonResult GetOpcionesMenu(string searchTerm)
+        //{
+        //    var items = MenuEntity.ListarMenuHijos()
+        //        .Select(o => new Oitem(o.id_menu, o.nombre_menu));
 
-            return Json(items);
-        }
+        //    return Json(items);
+        //}
 
         public JsonResult _GetOpcionesMenu()
         {

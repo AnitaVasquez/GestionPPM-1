@@ -2,14 +2,13 @@
 using GestionPPM.Entidades.Modelo;
 using GestionPPM.Repositorios;
 using OfficeOpenXml;
-using Omu.Awem.Helpers;
 using Seguridad.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace TemplateInicial.Controllers
@@ -200,13 +199,13 @@ namespace TemplateInicial.Controllers
 
         }
 
-        public JsonResult GetPerfiles(string searchTerm)
-        {
-            var items = PerfilesEntity.ListarPerfil()
-                .Select(o => new Oitem(o.Id, o.Nombre));
+        //public JsonResult GetPerfiles(string searchTerm)
+        //{
+        //    var items = PerfilesEntity.ListarPerfil()
+        //        .Select(o => new Oitem(o.Id, o.Nombre));
 
-            return Json(items);
-        }
+        //    return Json(items);
+        //}
 
         public JsonResult _GetPerfiles()
         {

@@ -2,8 +2,6 @@
 using GestionPPM.Entidades.Modelo;
 using GestionPPM.Repositorios;
 using OfficeOpenXml;
-using Omu.Awem.Helpers;
-using Omu.AwesomeMvc;
 using Seguridad.Helper;
 using System;
 using System.Collections.Generic;
@@ -415,12 +413,12 @@ namespace TemplateInicial.Controllers
         }
 
         //Autocompleto
-        public ActionResult GetItemsCargos(string busqueda)// v is the entered text
-        {
-            busqueda = (busqueda ?? "").ToLower().Trim();
-            var items = CatalogoEntity.ObtenerListadoCatalogosByCodigo("CRG-01").Where(o => o.Text.ToLower().Contains(busqueda));
-            return Json(items.Take(10).Select(o => new KeyContent(o.Value, o.Text)));
-        }
+        //public ActionResult GetItemsCargos(string busqueda)// v is the entered text
+        //{
+        //    busqueda = (busqueda ?? "").ToLower().Trim();
+        //    var items = CatalogoEntity.ObtenerListadoCatalogosByCodigo("CRG-01").Where(o => o.Text.ToLower().Contains(busqueda));
+        //    return Json(items.Take(10).Select(o => new KeyContent(o.Value, o.Text)));
+        //}
 
 
         public JsonResult _GetItemsCargos(string busqueda)

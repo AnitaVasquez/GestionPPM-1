@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,10 +11,8 @@ using System.Web.Mvc;
 using GestionPPM.Entidades.Metodos;
 using GestionPPM.Entidades.Modelo;
 using GestionPPM.Repositorios;
-using Newtonsoft.Json;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using Omu.Awem.Helpers;
 using Seguridad.Helper;
 
 namespace TemplateInicial.Controllers
@@ -308,23 +305,23 @@ namespace TemplateInicial.Controllers
             return Json(new { DataPaises = CatalogoEntity.ConsultarCatalogoPorPadre(id, "CIUDAD"), Prefijo = CatalogoEntity.ConsultarCatalogoPorPadre(id, "PREFIJO") }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetDependientesEtapaClienteEtapaGeneral(int id)
-        {
-            var catalogo = CatalogoEntity.ListadoCatalogosEtapaCliente(id).Where(s => s.codigo_catalogo == "ETAPA-GENERAL").Select(o => new Oitem(o.id_catalogo, o.nombre_catalgo));
-            return Json(catalogo);
-        }
+        //public JsonResult GetDependientesEtapaClienteEtapaGeneral(int id)
+        //{
+        //    var catalogo = CatalogoEntity.ListadoCatalogosEtapaCliente(id).Where(s => s.codigo_catalogo == "ETAPA-GENERAL").Select(o => new Oitem(o.id_catalogo, o.nombre_catalgo));
+        //    return Json(catalogo);
+        //}
 
-        public JsonResult GetDependientesEtapaClienteEstatusDetallado(int id)
-        {
-            var catalogo = CatalogoEntity.ListadoCatalogosEtapaCliente(id).Where(s => s.codigo_catalogo == "ESTATUS-DETALLADO").Select(o => new Oitem(o.id_catalogo, o.nombre_catalgo)); ;
-            return Json(catalogo);
-        }
+        //public JsonResult GetDependientesEtapaClienteEstatusDetallado(int id)
+        //{
+        //    var catalogo = CatalogoEntity.ListadoCatalogosEtapaCliente(id).Where(s => s.codigo_catalogo == "ESTATUS-DETALLADO").Select(o => new Oitem(o.id_catalogo, o.nombre_catalgo)); ;
+        //    return Json(catalogo);
+        //}
 
-        public JsonResult GetDependientesEtapaClienteEstatusGeneral(int id)
-        {
-            var catalogo = CatalogoEntity.ListadoCatalogosEtapaCliente(id).Where(s => s.codigo_catalogo == "ESTATUS-GENERAL").Select(o => new Oitem(o.id_catalogo, o.nombre_catalgo)); ;
-            return Json(catalogo);
-        }
+        //public JsonResult GetDependientesEtapaClienteEstatusGeneral(int id)
+        //{
+        //    var catalogo = CatalogoEntity.ListadoCatalogosEtapaCliente(id).Where(s => s.codigo_catalogo == "ESTATUS-GENERAL").Select(o => new Oitem(o.id_catalogo, o.nombre_catalgo)); ;
+        //    return Json(catalogo);
+        //}
 
         public JsonResult GetDependientesEtapaCliente(int? id)
         {
@@ -332,19 +329,19 @@ namespace TemplateInicial.Controllers
             return Json(CatalogoEntity.ListadoCatalogosEtapaCliente(id.Value));
         }
 
-        public JsonResult GetContactosCliente(int? id)
-        {
-            if (id.HasValue)
-            {
-                var items = ContactoClienteEntity.ListarContactosClientesByCliente(id.Value)
-    .Select(o => new Oitem(o.id_contacto, o.nombre_contacto + " " + o.apellido_contacto));
+    //    public JsonResult GetContactosCliente(int? id)
+    //    {
+    //        if (id.HasValue)
+    //        {
+    //            var items = ContactoClienteEntity.ListarContactosClientesByCliente(id.Value)
+    //.Select(o => new Oitem(o.id_contacto, o.nombre_contacto + " " + o.apellido_contacto));
 
-                return Json(items);
-            }
-            else
-                return Json(new List<Oitem>());
+    //            return Json(items);
+    //        }
+    //        else
+    //            return Json(new List<Oitem>());
 
-        }
+    //    }
 
         public JsonResult GetDependientesTipoZoho(int id)
         {
@@ -397,24 +394,24 @@ namespace TemplateInicial.Controllers
             }
         }
 
-        public JsonResult GetContactos(int? id)
-        {
-            var items = ContactoClienteEntity.ListarContactos()
-                .Select(o => new Oitem(o.id_contacto, o.nombre_contacto + " " + o.apellido_contacto + " - " + o.TextoCatalogoContacto));
+    //    public JsonResult GetContactos(int? id)
+    //    {
+    //        var items = ContactoClienteEntity.ListarContactos()
+    //            .Select(o => new Oitem(o.id_contacto, o.nombre_contacto + " " + o.apellido_contacto + " - " + o.TextoCatalogoContacto));
 
-            return Json(items);
-        }
+    //        return Json(items);
+    //    }
 
-        public JsonResult GetContactosFacturacion(int? id)
-        {
-            List<Oitem> items = new List<Oitem>();
-            if (id.HasValue)
-            {
-                items = ContactoClienteEntity.ListarContactosFacturacion().Where(s => s.idCliente == id.Value)
-    .Select(o => new Oitem(o.id_contacto, o.nombre_contacto + " " + o.apellido_contacto)).ToList();
-            }
-            return Json(items);
-        }
+    //    public JsonResult GetContactosFacturacion(int? id)
+    //    {
+    //        List<Oitem> items = new List<Oitem>();
+    //        if (id.HasValue)
+    //        {
+    //            items = ContactoClienteEntity.ListarContactosFacturacion().Where(s => s.idCliente == id.Value)
+    //.Select(o => new Oitem(o.id_contacto, o.nombre_contacto + " " + o.apellido_contacto)).ToList();
+    //        }
+    //        return Json(items);
+    //    }
 
 
         public JsonResult _GetContactosFacturacion()
