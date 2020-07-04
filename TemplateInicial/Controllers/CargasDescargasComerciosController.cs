@@ -114,6 +114,7 @@ namespace TemplateInicial.Controllers
                                                     carga.Detalles.Add(new DetallesCargaMasiva { Fila = row, Columna = col, Valor = valorColumna, Error = string.Format("El RUC {0} no se encuentra asociado a ningún comercio existente.", valorColumna) });
                                                 break;
                                             case "PRODUCTO":
+                                                //Producto no tiene validaciones
                                                 objeto.Producto = valorColumna;
                                                 break;
                                             case "MID":
