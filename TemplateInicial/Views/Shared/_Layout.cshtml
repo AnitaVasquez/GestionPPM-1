@@ -16,7 +16,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     @Styles.Render("~/Bundles/css")
 
-    <link href="@Url.Content("~/Content/themes/wui/AwesomeMvc.css?v=107")" rel="stylesheet" type="text/css" id="aweStyle" />
+    @*<link href="@Url.Content("~/Content/themes/wui/AwesomeMvc.css?v=107")" rel="stylesheet" type="text/css" id="aweStyle" />*@
 
     <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet">
     <link href="~/Content/css/animsition.min.css" rel="stylesheet" />
@@ -130,7 +130,7 @@
     <script src="~/Scripts/jquery.blockUI.js"></script>
 
     @*call init after utils.js and validate.js*@
-    @Html.Awe().Init()
+    @*@Html.Awe().Init()*@
 
 <script>
     var imgBuildLoading = '<img src="@Url.Content("~/Content/img/loader-grid.gif")" />'
