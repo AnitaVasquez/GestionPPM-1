@@ -120,6 +120,7 @@ namespace TemplateInicial.Controllers
                                             case "MID":
                                                 objeto.MID = valorColumna;
 
+                                                //Validacion de mids existentes
                                                 string valorColumnaRUC = (worksheet.Cells[row, 1].Value ?? "").ToString().Trim();
                                                 bool existeMID = await ComercioPlaceToPayEntity.ExisteMIDComercioNuevosPlaceToPayAsync(valorColumnaRUC, valorColumna);
                                                 if (existeMID)
